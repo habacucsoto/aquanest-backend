@@ -61,16 +61,4 @@ public class LogActuadorController {
         }
     }
     
-    @PostMapping("/test")
-    public ResponseEntity<?> testCreateLog() {
-        Actuador actuador = new Actuador();
-        actuador.setId(1L); // Usa un ID válido
-
-        LogActuador log = new LogActuador();
-        log.setActuador(actuador);
-        log.setAccion("Prueba");
-        log.setResultado("Probando log manual");
-
-        return ResponseEntity.ok(logActuadorService.save(log));
-    }
 }
