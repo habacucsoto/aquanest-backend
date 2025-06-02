@@ -1,6 +1,7 @@
 package com.example.APIAcuicultura.controller;
 
 import com.example.APIAcuicultura.entity.DatosSensor;
+import com.example.APIAcuicultura.repository.DatosSensorRepository;
 import com.example.APIAcuicultura.service.DatosSensorService;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,13 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 @RestController
 @RequestMapping("/datos-sensor")
 public class DatosSensorController {
 
+    @Autowired
+    private DatosSensorRepository datosSensorRepository;
+    
     @Autowired
     private DatosSensorService datosSensorService;
 
@@ -33,9 +35,13 @@ public class DatosSensorController {
                            .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Error message")
-    public void handleError() {
+        // Nuevo endpoint para obtener datos de sensores para un estanque específico
+    @GetMapping("/estanque/{pondId}/history")
+    public ResponseEntity<List<DatosSensor>> getHistoricalDataByPondId(@PathVariable Long pondId) {
+        List<DatosSensor> datos = datosSensorRepository.findBySensorEstanqueIdOrderByTimestampAsc(pondId);
+        if (datos.isEmpty()) {
+            return ResponseEntity.noContent().build(); // Devuelve 204 si no hay datos
+        }
+        return ResponseEntity.ok(datos);
     }
-    
 }

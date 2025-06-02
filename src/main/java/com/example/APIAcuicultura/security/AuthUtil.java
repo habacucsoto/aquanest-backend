@@ -13,7 +13,6 @@ public class AuthUtil {
             throw new RuntimeException("No hay usuario autenticado");
         }
 
-        // El principal puede ser un UserDetails personalizado o simplemente el email (String)
         Object principal = authentication.getPrincipal();
         if (principal instanceof org.springframework.security.core.userdetails.UserDetails) {
             return ((org.springframework.security.core.userdetails.UserDetails) principal).getUsername();

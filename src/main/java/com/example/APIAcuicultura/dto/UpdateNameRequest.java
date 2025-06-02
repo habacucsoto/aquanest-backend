@@ -4,7 +4,6 @@ public class UpdateNameRequest {
 
     private String nombre;
 
-    // Constructor sin argumentos
     public UpdateNameRequest() {
     }
 

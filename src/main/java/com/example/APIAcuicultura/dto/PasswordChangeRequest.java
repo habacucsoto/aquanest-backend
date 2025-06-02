@@ -7,7 +7,6 @@ public class PasswordChangeRequest {
     private String newPassword;
     private String confirmPassword;
 
-    // Constructor sin argumentos (necesario para la deserialización)
     public PasswordChangeRequest() {
     }
 

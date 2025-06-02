@@ -1,6 +1,5 @@
 package com.example.APIAcuicultura.controller;
 
-import com.example.APIAcuicultura.entity.Actuador;
 import com.example.APIAcuicultura.entity.LogActuador;
 import com.example.APIAcuicultura.service.LogActuadorService;
 import org.springframework.web.bind.annotation.RestController;
